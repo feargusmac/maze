@@ -8,11 +8,12 @@
  * File:   main.cpp
  * Author: Feargus
  *
- * Created on October 13, 2018, 5:40 PM
+ * Make and solve an nxn dimension maze
+ * where n is user inputted.
  */
 
-#include "disjointSet.h"
 #include "mazeGen.h"
+#include "mazeSolve.h"
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -34,6 +35,9 @@ int main(int argc, char** argv) {
     
     string mazeOut = myMaze.printMaze();
     cout << mazeOut;
+    
+    mazeSolve solution(mazeOut);
+    
     
     return 0;
 }

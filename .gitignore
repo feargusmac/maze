@@ -1,5 +1,9 @@
 build/
 
+nbproject/
+
+*.inc
+
 *.exe
 
 *.exe.*

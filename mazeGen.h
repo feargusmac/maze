@@ -8,6 +8,7 @@
 #ifndef MAZEGEN_H
 #define MAZEGEN_H
 
+#include "disjointSet.h"
 #include "mazeGen.h"
 #include <string>
 #include <vector>
