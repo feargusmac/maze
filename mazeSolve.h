@@ -21,7 +21,7 @@ public:
     //mazeSolve();
     mazeSolve(std::string);
     virtual ~mazeSolve();
-    Graph *getInput();
+    Graph *getInput(std::string);
     void solve();
     
 private:
@@ -29,6 +29,7 @@ private:
     std::vector<int> adj(int);
     void printPath(int);
     Graph *maze;
+    int dimension;
 
 };
 

@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
     cout << mazeOut;
     
     mazeSolve solution(mazeOut);
+    solution.solve();
     
     
     return 0;

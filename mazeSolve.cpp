@@ -17,7 +17,10 @@
 }*/
 
 mazeSolve::mazeSolve(std::string mazeString) {
-    maze = getInput();
+    // **** DEBUG ****
+    std::cout << std::endl << mazeString << std::endl;
+    // ****       ****
+    maze = getInput(mazeString);
     
 }
 
@@ -27,10 +30,12 @@ mazeSolve::~mazeSolve() {
     delete maze; maze = 0;
 }
 
-Graph *mazeSolve::getInput() {
-    std::string input;
+Graph *mazeSolve::getInput(std::string input) {
     std::getline(std::cin, input); // read just first line
-    int dimension = input.length();
+    // **** DEBUG ****
+    std::cout << input << std::endl;
+    // ****       ****
+    dimension = input.length();
     if (dimension == 0) {
         std::cout << "No input detected" << std::endl;
         exit(0);
@@ -55,7 +60,8 @@ Graph *mazeSolve::getInput() {
 }
 
 void mazeSolve::solve() {
-    
+    BFS(0);
+    printPath((dimension*dimension - 1)); // start at the end
 }
 
 void mazeSolve::BFS(int source) {
