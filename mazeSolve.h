@@ -28,6 +28,7 @@ private:
     void BFS(int);
     std::vector<int> adj(int);
     void printPath(int);
+    std::string getnextline(std::string&);
     Graph *maze;
     int dimension;
 

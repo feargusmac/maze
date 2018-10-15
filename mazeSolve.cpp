@@ -8,6 +8,7 @@
  */
 
 #include "mazeSolve.h"
+#include <cmath>
 #include <iostream>
 #include <queue> // make my own queue class
 #include <sstream>
@@ -18,7 +19,7 @@
 
 mazeSolve::mazeSolve(std::string mazeString) {
     // **** DEBUG ****
-    std::cout << std::endl << mazeString << std::endl;
+    // std::cout << std::endl << mazeString << std::endl;
     // ****       ****
     maze = getInput(mazeString);
     
@@ -31,29 +32,28 @@ mazeSolve::~mazeSolve() {
 }
 
 Graph *mazeSolve::getInput(std::string input) {
-    std::getline(std::cin, input); // read just first line
-    // **** DEBUG ****
-    std::cout << input << std::endl;
-    // ****       ****
-    dimension = input.length();
-    if (dimension == 0) {
+    if (input.length() == 0) {
         std::cout << "No input detected" << std::endl;
         exit(0);
     } // if no input
     
-    Graph *mazeGraph = new Graph(dimension);
-    mazeGraph->maze[0] = input; // add the first line to the maze graph
+    // TODO: is there a better way to do this?
+    dimension = 0;
+    while (input[dimension] != '\n') dimension++;
     
-    // get rest of input
-    int index = 1; // why are we using this and not just using i???
-    for (int i = 1; i < dimension; i++) {
-        getline(std::cin, input);
-        if (input.empty() || input.length() != dimension) { // any further checks needed?
-            std::cout << "Bad input" << std::endl;
-            exit(1);
+    Graph *mazeGraph = new Graph(dimension);
+    
+    // add each line to graph
+    for (int i = 0; i < dimension; i++) {
+        std::string str = "";
+        int start = i*(dimension+1);
+        for (int j = start; j < start+dimension; j++) {
+            // TODO: need a check here to make sure input is hex
+            str += input[j];
+            
         }
-        mazeGraph->maze[index] = input;
-        index++;
+        
+        mazeGraph->mazeArray[i] = str;
     }
     
     return mazeGraph;    
@@ -92,7 +92,7 @@ std::vector<int> mazeSolve::adj(int t) {
     
     int convertedInteger;
     std::stringstream ss;
-    ss << std::hex << maze->maze[maze->getRow(t)][maze->getColumn(t)];
+    ss << std::hex << maze->mazeArray[maze->getRow(t)][maze->getColumn(t)];
     ss >> convertedInteger;
     
     // ___find all adjacent cells and convert to integers
@@ -132,9 +132,9 @@ void mazeSolve::printPath(int cell) {
         printPath(maze->parent[cell]);
         
         std::cout << "(";
-        std::cout << maze->getColumn(maze->parent[cell]);
-        std::cout << ", ";
         std::cout << maze->getRow(maze->parent[cell]);
+        std::cout << ", ";
+        std::cout << maze->getColumn(maze->parent[cell]);
         std::cout << ")" << std::endl;
     }
 }

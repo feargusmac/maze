@@ -17,7 +17,7 @@ Graph::Graph(int SIZE) {
     color = new int[length];
     distance = new int[length];
     parent = new int[length];
-    maze = new std::string[length];
+    mazeArray = new std::string[length];
     
     for (int i = 0; i < length; i++) {
         color[i] = 0;
@@ -30,7 +30,7 @@ Graph::~Graph() {
     delete[] color; color = 0;
     delete[] parent; parent = 0;
     delete[] distance; distance = 0;
-    delete[] maze; maze = 0;
+    delete[] mazeArray; mazeArray = 0;
 }
 
 // TODO: bounds check

@@ -25,7 +25,7 @@ public:
     int bottom(int);
     int left(int);
     
-    std::string *maze; // a string array with number of strings
+    std::string *mazeArray; // a string array with number of strings
                     // equal to number of characters in a line, assuming
                     // nxn size maze
     int *color;
