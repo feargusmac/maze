@@ -80,7 +80,7 @@ void mazeSolve::BFS(int source) {
             }
         }
         myQ.pop();
-        maze->color[t] = WHITE; // black see above
+        maze->color[t] = BLACK; // black see above
     }
 }
 
