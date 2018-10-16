@@ -18,11 +18,8 @@
 }*/
 
 mazeSolve::mazeSolve(std::string mazeString) {
-    // **** DEBUG ****
-    // std::cout << std::endl << mazeString << std::endl;
-    // ****       ****
     maze = getInput(mazeString);
-    
+    // TODO: do I need anything else here?
 }
 
 
@@ -66,7 +63,7 @@ void mazeSolve::solve() {
 
 void mazeSolve::BFS(int source) {
     std::queue<int> myQ;
-    maze->color[source] = 1; // TODO: enumerate colors
+    maze->color[source] = GREY; // TODO: enumerate colors
     maze->distance[source] = 0;
     maze->parent[source] = 0;
     myQ.push(source);
@@ -75,15 +72,15 @@ void mazeSolve::BFS(int source) {
         int t = myQ.front();
         std::vector<int> adjCells = adj(t);
         for (int v : adjCells) {
-            if (maze->color[v] == 0) {
-                maze->color[v] = 1; // grey again enumerate this
+            if (maze->color[v] == WHITE) {
+                maze->color[v] = GREY; // grey again enumerate this
                 maze->parent[v] = t;
                 maze->distance[v] = maze->distance[t]+1;
                 myQ.push(v);
             }
         }
         myQ.pop();
-        maze->color[t] = 2; // black see above
+        maze->color[t] = WHITE; // black see above
     }
 }
 

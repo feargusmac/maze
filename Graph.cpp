@@ -5,11 +5,11 @@
  * Simple graph class used in Breadth First Search
  * to solve maze.
  * 
- * TODO: can enumerate colors,
  */
 
 #include "Graph.h"
 #include <climits>
+
 
 Graph::Graph(int SIZE) {
     size = SIZE;
@@ -20,7 +20,7 @@ Graph::Graph(int SIZE) {
     mazeArray = new std::string[length];
     
     for (int i = 0; i < length; i++) {
-        color[i] = 0;
+        color[i] = WHITE;
         distance[i] = INT_MAX;
         parent[i] = 0;
     }

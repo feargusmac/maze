@@ -11,7 +11,13 @@
 
 #include <string>
 
+// COLORS as constants
+int const WHITE = 0;
+int const GREY = 1;
+int const BLACK = 2;
+
 class Graph {
+    
     
 public:
     Graph(int size);
