@@ -25,6 +25,7 @@ public:
 private:
     void breakWall(int, int);
     bool checkBounds(int, int);
+    void shuffle(std::vector<int>&);
     
     // helper access functions
     int top(int);

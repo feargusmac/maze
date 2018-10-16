@@ -26,6 +26,9 @@ mazeGen::mazeGen(int n) {
     MazeSets = new disjointSet(numCells);
     Maze = new int[numCells];
     
+    srand(time(0)); // seed random, used to shuffle indices
+                    // only needs to be done once so here is good
+    
     // every cell of the maze is set to closed box
     // except for the first and final cells, which
     // are the beginning and ending of the maze
@@ -50,9 +53,9 @@ mazeGen::~mazeGen() {
 // TODO: the biggest thing to do is clean up
 // and modularize this function
 void mazeGen::generateMaze() {
-    srand(time(0)); // seed random, used to shuffle indices
     std::vector<int> copy = indices;
     // TODO: write shuffle algorithm to shuffle indices
+    shuffle(indices);
     
     int numUnions = 0;              // TODO: VVV can below be done with an array and index?
     int index = indices.size() - 1; // start at back to easily pop
@@ -75,8 +78,8 @@ void mazeGen::generateMaze() {
             tryWall = (1 + tryWall) % 4; // increment through other walls
             canBreakWall = checkBounds(cellIndex, tryWall);
             
-            if (tryWall == wallToBreak) { // this means we've come back to origianl tryWall
-                        // so it's in union with it's neighbords and we don't need to do anything with it
+            if (tryWall == wallToBreak) { // this means we've come back to original tryWall
+                        // so it's in union with it's neighbors and we don't need to do anything with it
                 indices.pop_back();
                 index--;
                 canBreakWall = true;
@@ -160,6 +163,16 @@ bool mazeGen::checkBounds(int cellIndex, int wall) {
     if (MazeSets->sameComp(cellIndex, otherCell)) return false;
     
     return true;
+}
+
+void mazeGen::shuffle(std::vector<int> &indices) {
+    int temp; int swaptarget;
+    for (int i = indices.size() - 1; i >= 0; i--) {
+        swaptarget = rand() % (i+1);
+        temp = indices[i];
+        indices[i] = indices[swaptarget];
+        indices[swaptarget] = temp;
+    }
 }
 
 int mazeGen::top(int x) {
