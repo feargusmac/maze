@@ -45,9 +45,12 @@ Graph *mazeSolve::getInput(std::string input) {
         std::string str = "";
         int start = i*(dimension+1);
         for (int j = start; j < start+dimension; j++) {
-            // TODO: need a check here to make sure input is hex
-            str += input[j];
+            if (!isHex(input[j])) {
+                std::cerr << "Input " << j << " is not hex." << std::endl;
+                exit(1);
+            }
             
+            str += input[j];
         }
         
         mazeGraph->mazeArray[i] = str;
@@ -134,4 +137,26 @@ void mazeSolve::printPath(int cell) {
         std::cout << maze->getColumn(maze->parent[cell]);
         std::cout << ")" << std::endl;
     }
+}
+
+bool mazeSolve::isHex(char c) {
+    if (c == '0' 
+         || c == '1'
+         || c == '2'
+         || c == '3'
+         || c == '4'
+         || c == '5'
+         || c == '6'
+         || c == '7'
+         || c == '8'
+         || c == '9'
+         || c == 'a'
+         || c == 'b'
+         || c == 'c'
+         || c == 'd'
+         || c == 'e'
+         || c == 'f')
+        return true;
+    else
+        return false;
 }

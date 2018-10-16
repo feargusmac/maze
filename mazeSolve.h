@@ -28,7 +28,7 @@ private:
     void BFS(int);
     std::vector<int> adj(int);
     void printPath(int);
-    std::string getnextline(std::string&);
+    bool isHex(char);
     Graph *maze;
     int dimension;
 
