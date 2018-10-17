@@ -53,9 +53,7 @@ mazeGen::~mazeGen() {
 // TODO: the biggest thing to do is clean up
 // and modularize this function
 void mazeGen::generateMaze() {
-    std::cout << indices[0] << " " << indices[1] << " " << indices[2] << std::endl;
     shuffle(indices);
-    std::cout << indices[0] << " " << indices[1] << " " << indices[2] << std::endl;
     
     int numUnions = 0;
     int index = 0; 
@@ -63,7 +61,7 @@ void mazeGen::generateMaze() {
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
         
-        int wallToBreak = rand()%4; // randomly select a wall to break
+        int wallToBreak = 2^(rand()%4); // randomly select a wall to break
         bool canBreakWall = checkBounds(cellIndex, wallToBreak);
         int tryWall = wallToBreak;
         bool doBreakWall = true; // used to make sure we don't increase numUnions 
@@ -127,13 +125,13 @@ std::string mazeGen::printMaze() {
 
 void mazeGen::breakWall(int cellIndex, int wall) {
     if (wall == TOP) {                            // VVV can it binary xor?
-        Maze[cellIndex] = Maze[cellIndex] - 8; // the difference in hex value for cell type when removing top
+        Maze[cellIndex] = Maze[cellIndex] ^ TOP; // the difference in hex value for cell type when removing top
     } else if (wall == RIGHT) {
-        Maze[cellIndex] = Maze[cellIndex] - 1; // and so on
+        Maze[cellIndex] = Maze[cellIndex] ^ RIGHT; // and so on
     } else if (wall == BOTTOM) {
-        Maze[cellIndex] = Maze[cellIndex] - 2;
+        Maze[cellIndex] = Maze[cellIndex] ^ BOTTOM;
     } else if (wall == LEFT) {
-        Maze[cellIndex] = Maze[cellIndex] - 4;
+        Maze[cellIndex] = Maze[cellIndex] ^ LEFT;
     }
 }
 

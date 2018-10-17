@@ -41,10 +41,10 @@ private:
     int *Maze;
     
     // CONSTANTS
-    int TOP = 0;
     int RIGHT = 1;
     int BOTTOM = 2;
-    int LEFT = 3;
+    int LEFT = 4;
+    int TOP = 8;
     
 };
 
