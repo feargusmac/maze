@@ -47,24 +47,18 @@ mazeGen::mazeGen(int n) {
 mazeGen::~mazeGen() {
     // TODO: check for additional memory leaks
     delete[] Maze; Maze = 0;
-    // TODO: VVV this is breaking
     delete MazeSets; MazeSets = 0;
 }
 
 // TODO: the biggest thing to do is clean up
 // and modularize this function
 void mazeGen::generateMaze() {
-    std::vector<int> copy = indices;
-    // TODO: write shuffle algorithm to shuffle indices
     shuffle(indices);
     
     int numUnions = 0;              // TODO: VVV can below be done with an array and index?
     int index = indices.size() - 1; // start at back to easily pop
     while (numUnions < numCells - 1) { // when numUnions = numCells - 1 everything is in union
-        if (index == 0) { // if we've been through all the indices and not everything is in union
-            indices = copy; // then restart 
-            index = indices.size() - 1;
-        } // TODO: can this be put at the end of the loop?
+        
         
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
@@ -81,7 +75,6 @@ void mazeGen::generateMaze() {
             
             if (tryWall == wallToBreak) { // this means we've come back to original tryWall
                         // so it's in union with it's neighbors and we don't need to do anything with it
-                indices.pop_back();
                 index--;
                 canBreakWall = true;
                 doBreakWall = false;
@@ -113,6 +106,10 @@ void mazeGen::generateMaze() {
             }
             index--;
         }  
+        
+        if (index == 0) { // if we've been through all the indices and not everything is in union
+            index = indices.size() - 1;
+        } 
     }
 }
 
