@@ -47,7 +47,8 @@ mazeGen::mazeGen(int n) {
 mazeGen::~mazeGen() {
     // TODO: check for additional memory leaks
     delete[] Maze; Maze = 0;
-    delete[] MazeSets; MazeSets = 0;
+    // TODO: VVV this is breaking
+    delete MazeSets; MazeSets = 0;
 }
 
 // TODO: the biggest thing to do is clean up

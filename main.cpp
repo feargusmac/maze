@@ -24,7 +24,6 @@ int main(int argc, char** argv) {
     int mazeDim;
     cin >> mazeDim;
 
-    //int mazeDim = atoi(argv[1]);
     if (mazeDim < 3) {
         cerr << "Value must be 3 or greater" << endl;
         exit(1);
@@ -32,13 +31,12 @@ int main(int argc, char** argv) {
     
     mazeGen myMaze(mazeDim);
     myMaze.generateMaze();
-    
+
     string mazeOut = myMaze.printMaze();
     cout << mazeOut;
     
     mazeSolve solution(mazeOut);
-    solution.solve();
-    
+    solution.solve(); 
     
     return 0;
 }
