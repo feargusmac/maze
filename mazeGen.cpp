@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <vector>
 
@@ -52,10 +53,12 @@ mazeGen::~mazeGen() {
 // TODO: the biggest thing to do is clean up
 // and modularize this function
 void mazeGen::generateMaze() {
+    std::cout << indices[0] << " " << indices[1] << " " << indices[2] << std::endl;
     shuffle(indices);
+    std::cout << indices[0] << " " << indices[1] << " " << indices[2] << std::endl;
     
-    int numUnions = 0;              // TODO: VVV can below be done with an array and index?
-    int index = indices.size() - 1; // start at back to easily pop
+    int numUnions = 0;
+    int index = 0; 
     while (numUnions < numCells - 1) { // when numUnions = numCells - 1 everything is in union
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
@@ -101,11 +104,11 @@ void mazeGen::generateMaze() {
                 MazeSets->nunion(cellIndex, left(cellIndex));
                 numUnions++;
             }
-            index--;
+            index++;
         }  
         
         if (index == 0) { // if we've been through all the indices and not everything is in union
-            index = indices.size() - 1;
+            index = 0;
         } 
     }
 }
