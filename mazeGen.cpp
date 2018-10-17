@@ -4,7 +4,6 @@
  *
  * Generates a square maze using disjoint sets.
  * 
- * TODO: enumerate TOP, BOTTOM, LEFT, RIGHT
  */
 
 #include "disjointSet.h"
@@ -58,8 +57,6 @@ void mazeGen::generateMaze() {
     int numUnions = 0;              // TODO: VVV can below be done with an array and index?
     int index = indices.size() - 1; // start at back to easily pop
     while (numUnions < numCells - 1) { // when numUnions = numCells - 1 everything is in union
-        
-        
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
         
@@ -87,20 +84,20 @@ void mazeGen::generateMaze() {
         if (canBreakWall && doBreakWall) {
             breakWall(cellIndex, wallToBreak);
             // also need to break wall in adjacent cell
-            if (wallToBreak == 0) { // top wall
-                breakWall(top(cellIndex), 2); // 2 because break bottom
+            if (wallToBreak == TOP) { 
+                breakWall(top(cellIndex), BOTTOM); 
                 MazeSets->nunion(cellIndex, top(cellIndex));
                 numUnions++;
-            } else if (wallToBreak == 1) { // right wall
-                breakWall(right(cellIndex), 3); // 3 break left
+            } else if (wallToBreak == RIGHT) { 
+                breakWall(right(cellIndex), LEFT); 
                 MazeSets->nunion(cellIndex, right(cellIndex));
                 numUnions++;
-            } else if (wallToBreak == 2) { // bottom wall
-                breakWall(bottom(cellIndex), 0); // 0 break top
+            } else if (wallToBreak == BOTTOM) {
+                breakWall(bottom(cellIndex), TOP); 
                 MazeSets->nunion(cellIndex, bottom(cellIndex));
                 numUnions++;
-            } else if (wallToBreak == 3) { // left wall
-                breakWall(left(cellIndex), 1); // 1 break right
+            } else if (wallToBreak == LEFT) { 
+                breakWall(left(cellIndex), RIGHT); 
                 MazeSets->nunion(cellIndex, left(cellIndex));
                 numUnions++;
             }
@@ -126,29 +123,27 @@ std::string mazeGen::printMaze() {
 }
 
 void mazeGen::breakWall(int cellIndex, int wall) {
-    // 0 - top, 1 - right, 2 - bottom, 3 - left
-    if (wall == 0) {                            // VVV can it binary xor?
+    if (wall == TOP) {                            // VVV can it binary xor?
         Maze[cellIndex] = Maze[cellIndex] - 8; // the difference in hex value for cell type when removing top
-    } else if (wall == 1) {
+    } else if (wall == RIGHT) {
         Maze[cellIndex] = Maze[cellIndex] - 1; // and so on
-    } else if (wall == 2) {
+    } else if (wall == BOTTOM) {
         Maze[cellIndex] = Maze[cellIndex] - 2;
-    } else if (wall == 3) {
+    } else if (wall == LEFT) {
         Maze[cellIndex] = Maze[cellIndex] - 4;
     }
 }
 
 // returns true if it's safe to break wall, otherwise returns false
 bool mazeGen::checkBounds(int cellIndex, int wall) {
-    // 0 - top, 1 - right, 2 - bottom, 3 - left
     int otherCell;
-    if (wall == 0) {
+    if (wall == TOP) {
         otherCell = top(cellIndex);
-    } else if (wall == 1) {
+    } else if (wall == RIGHT) {
         otherCell = right(cellIndex);
-    } else if (wall == 2) {
+    } else if (wall == BOTTOM) {
         otherCell = bottom(cellIndex);
-    } else if (wall == 3) {
+    } else if (wall == LEFT) {
         otherCell = left(cellIndex);
     }
     
