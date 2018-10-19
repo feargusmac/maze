@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     mazeGen myMaze(mazeDim);
     myMaze.generateMaze();
 
-    string mazeOut = myMaze.printMaze();
+    string mazeOut = myMaze.toString();
     cout << mazeOut;
     
     mazeSolve solution(mazeOut);

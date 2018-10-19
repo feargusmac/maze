@@ -20,7 +20,7 @@ public:
     mazeGen(int);
     ~mazeGen();
     void generateMaze();
-    std::string printMaze();
+    std::string toString();
     
 private:
     void breakWall(int, int);

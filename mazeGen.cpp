@@ -61,11 +61,11 @@ void mazeGen::generateMaze() {
     while (numUnions < numCells - 1) { // when numUnions = numCells - 1 everything is in union
         // random cell to work with from randomly shuffled vector of all indices
         int currentCell = indices[index];
-        //std::cout << "aqui aqui" << std::endl;
         
+        // instead of rand could have a vector of [TOP, BOTTOM, RIGHT, LEFT] and shuffle that and iterate through
         int wallToBreak = pow(2,(rand()%4)); // randomly select a wall to break
         bool canBreakWall = checkBounds(currentCell, wallToBreak);
-        for (int i = 1; i < 4; i++) { // try other walls
+        for (int i = 1; i < 4; i++) { // find a wall to break that works
             if (!canBreakWall) {
                 if (wallToBreak == 8)
                     wallToBreak = 1;
@@ -89,7 +89,7 @@ void mazeGen::generateMaze() {
 }
 
 // rename toString?
-std::string mazeGen::printMaze() {
+std::string mazeGen::toString() {
     std::stringstream mazeOut;
     for (int i = 0; i < numCells; i++) {
         mazeOut << std::hex << Maze[i];
