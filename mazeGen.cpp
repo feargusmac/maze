@@ -8,6 +8,7 @@
 
 #include "disjointSet.h"
 #include "mazeGen.h"
+#include <cmath>
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
@@ -61,14 +62,19 @@ void mazeGen::generateMaze() {
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
         
-        int wallToBreak = 2^(rand()%4); // randomly select a wall to break
+
+        int wallToBreak = pow(2,(rand()%4)); // randomly select a wall to break
         bool canBreakWall = checkBounds(cellIndex, wallToBreak);
         int tryWall = wallToBreak;
         bool doBreakWall = true; // used to make sure we don't increase numUnions 
                                 // when a cell is in union with all its neighbors
         
         while (!canBreakWall) {
-            tryWall = (1 + tryWall) % 4; // increment through other walls
+            if (tryWall == 8)
+                tryWall = 1;
+            else 
+                tryWall *= 2;
+            //std::cout << wallToBreak << " " << tryWall << std::endl;
             canBreakWall = checkBounds(cellIndex, tryWall);
             
             if (tryWall == wallToBreak) { // this means we've come back to original tryWall
