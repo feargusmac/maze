@@ -9,8 +9,6 @@
  */
 
 #include "disjointSet.h"
-#include <iostream>
-#include <vector>
 
 disjointSet::disjointSet() {
 }

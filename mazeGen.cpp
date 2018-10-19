@@ -50,8 +50,6 @@ mazeGen::~mazeGen() {
     delete MazeSets; MazeSets = 0;
 }
 
-// TODO: the biggest thing to do is clean up
-// and modularize this function
 void mazeGen::generateMaze() {
     shuffle(indices);
     
@@ -87,7 +85,6 @@ void mazeGen::generateMaze() {
     }
 }
 
-// rename toString?
 std::string mazeGen::toString() {
     std::stringstream mazeOut;
     for (int i = 0; i < numCells; i++) {

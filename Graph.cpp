@@ -33,18 +33,18 @@ Graph::~Graph() {
     delete[] mazeArray; mazeArray = 0;
 }
 
-// TODO: bounds check
 int Graph::getRow(int index) const {
+    if (index >= size*size || index < 0) return -1;
     return index/size;
 }
 
-// TODO: bounds check
 int Graph::getColumn(int index) const {
+    if (index >= size*size || index < 0) return -1;
     return index%size;
 }
 
-// TODO: bounds check
 int Graph::getIndex(int row, int column) const {
+    if (row*size + column >= size*size) return -1;
     return row*size + column;
 }
 
