@@ -48,7 +48,7 @@ int Graph::getIndex(int row, int column) const {
     return row*size + column;
 }
 
-int Graph::top(int x) {
+int Graph::above(int x) {
     if (x-size < 0) return -1;
     return x - size;
 }
@@ -58,7 +58,7 @@ int Graph::right(int x) {
     return x+1;
 }
 
-int Graph::bottom(int x) {
+int Graph::below(int x) {
     if (x+size > (size*size - 1)) return -1;
     return x + size;
 }

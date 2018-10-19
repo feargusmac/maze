@@ -96,30 +96,30 @@ std::vector<int> mazeSolve::adj(int t) {
     ss >> convertedInteger;
     
     // ___find all adjacent cells and convert to integers
-    // check right - 1                  // TODO: enumerate these as well
-    if ((convertedInteger | 1) != convertedInteger) {
+    // check right - 1 
+    if ((convertedInteger | RIGHTSIDE) != convertedInteger) {
         int cell = maze->right(t);
         if (cell >= 0) 
             adjCells.push_back(cell);
     }
     
     // check bottom - 2
-    if ((convertedInteger | 2) != convertedInteger) {
-        int cell = maze->bottom(t);
+    if ((convertedInteger | BOTTOM) != convertedInteger) {
+        int cell = maze->below(t);
         if (cell >= 0)
             adjCells.push_back(cell);
     }
     
     // check left - 3
-    if ((convertedInteger | 4) != convertedInteger) {
+    if ((convertedInteger | LEFTSIDE) != convertedInteger) {
         int cell = maze->left(t);
         if (cell >= 0)
             adjCells.push_back(cell);
     }
     
     // check top - 8
-    if ((convertedInteger | 8) != convertedInteger) {
-        int cell = maze->top(t);
+    if ((convertedInteger | TOP) != convertedInteger) {
+        int cell = maze->above(t);
         if (cell >= 0) 
             adjCells.push_back(cell);
     }

@@ -31,6 +31,13 @@ private:
     bool isHex(char);
     Graph *maze;
     int dimension;
+    
+    // CONSTANTS
+    
+    int TOP = 8;
+    int RIGHTSIDE = 1;
+    int BOTTOM = 2;
+    int LEFTSIDE = 4;
 
 };
 

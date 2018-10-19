@@ -26,9 +26,9 @@ public:
     int getRow(int) const;
     int getColumn(int) const;
     int getIndex(int, int) const;
-    int top(int);
+    int above(int);
     int right(int);
-    int bottom(int);
+    int below(int);
     int left(int);
     
     std::string *mazeArray; // a string array with number of strings
