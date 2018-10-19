@@ -1,25 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   doublyLinkedList.h
  * Author: Feargus
  *
- * Created on October 19, 2018, 1:54 PM
+ * A simple doubly linked list class for use in the Queue class.
  */
 
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
 
+#include <string>
+
+template <class T>
+class doublyLinkedList;
+    
+// LinkNode for internal connection
+template <class T>
+class LinkNode {
+    friend class doublyLinkedList<T>;
+ public: 
+    LinkNode() {next = prev = 0; data = 0;}
+    ~LinkNode() {}
+ private:
+    LinkNode *next;
+    LinkNode *prev;
+    T data;
+};
+    
+template <class T>
 class doublyLinkedList {
-public:
+ public:
     doublyLinkedList();
-    doublyLinkedList(const doublyLinkedList& orig);
     virtual ~doublyLinkedList();
-private:
+    void insertFront(T);
+    std::string removeFront();
+    void insertRead(T);
+    std::string removeRear();
+    void print();
+ private:
+     LinkNode *head;
+     LinkNode *tail;
 
 };
 
