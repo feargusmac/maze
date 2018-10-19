@@ -9,13 +9,13 @@
 #include <iostream>
 
 template <class T>
-doublyLinkedList::doublyLinkedList() {
+doublyLinkedList<T>::doublyLinkedList() {
     head = tail = NULL;
 }
 
 template <class T>
-doublyLinkedList::~doublyLinkedList() {
-    LinkNode *temp = head;
+doublyLinkedList<T>::~doublyLinkedList() {
+    LinkNode<T> *temp = head;
     
     while (head) {
         temp = head;
@@ -25,8 +25,8 @@ doublyLinkedList::~doublyLinkedList() {
 }
 
 template <class T>
-void doublyLinkedList::insertFront(T _data) {
-    LinkNode *newNode = new LinkNode();
+void doublyLinkedList<T>::insertFront(T _data) {
+    LinkNode<T> *newNode = new LinkNode<T>();
     newNode->data = _data;
     newNode->next = NULL;
     newNode->prev = NULL;
@@ -42,11 +42,11 @@ void doublyLinkedList::insertFront(T _data) {
 }
 
 template <class T>
-T doublyLinkedList::removeFront() {
+T doublyLinkedList<T>::removeFront() {
     if (!head) // if list is empty
         return NULL; // TODO: does this really work for all possible T?
     
-    LinkNode *deleteNode = head;
+    LinkNode<T> *deleteNode = head;
     T output = head->data;
     
     if (head == tail) { // if only one node in list
@@ -63,8 +63,8 @@ T doublyLinkedList::removeFront() {
 }
 
 template <class T>
-void doublyLinkedList::insertRear(T _data) {
-    LinkNode *newNode = new LinkNode();
+void doublyLinkedList<T>::insertRear(T _data) {
+    LinkNode<T> *newNode = new LinkNode<T>();
     newNode->data = _data;
     newNode->next = NULL;
     newNode->prev = NULL;
@@ -80,11 +80,11 @@ void doublyLinkedList::insertRear(T _data) {
 }
 
 template <class T>
-T doublyLinkedList::removeRear() {
+T doublyLinkedList<T>::removeRear() {
     if (!tail) // if list is empty
         return NULL; // TODO: does this work for all Ts? (see above)
     
-    LinkNode *deleteNode = tail;
+    LinkNode<T> *deleteNode = tail;
     T output = tail->data;
     
     if (head == tail) { //if only one node
@@ -100,8 +100,9 @@ T doublyLinkedList::removeRear() {
     return output;
 }
 
-void doublyLinkedList::print() {
-    LinkNode *temp = head;
+template <class T>
+void doublyLinkedList<T>::print() {
+    LinkNode<T> *temp = head;
     while (temp) {
         std::cout << (temp->data) << " ";
         temp = temp->next;

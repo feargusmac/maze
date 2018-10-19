@@ -37,8 +37,8 @@ class doublyLinkedList {
     T removeRear();
     void print();
  private:
-     LinkNode *head;
-     LinkNode *tail;
+     LinkNode<T> *head;
+     LinkNode<T> *tail;
 
 };
 
