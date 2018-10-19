@@ -60,40 +60,30 @@ void mazeGen::generateMaze() {
     int index = 0; 
     while (numUnions < numCells - 1) { // when numUnions = numCells - 1 everything is in union
         // random cell to work with from randomly shuffled vector of all indices
-        int cellIndex = indices[index]; // rename to randIndex?
+        int currentCell = indices[index];
+        //std::cout << "aqui aqui" << std::endl;
         
         int wallToBreak = pow(2,(rand()%4)); // randomly select a wall to break
-        bool canBreakWall = checkBounds(cellIndex, wallToBreak);
-        int tryWall = wallToBreak;
-        bool doBreakWall = true; // used to make sure we don't increase numUnions 
-                                // when a cell is in union with all its neighbors
-        
-        while (!canBreakWall) {
-            if (tryWall == 8)
-                tryWall = 1;
-            else 
-                tryWall *= 2;
-            //std::cout << wallToBreak << " " << tryWall << std::endl;
-            canBreakWall = checkBounds(cellIndex, tryWall);
+        bool canBreakWall = checkBounds(currentCell, wallToBreak);
+        for (int i = 1; i < 4; i++) { // try other walls
+            if (!canBreakWall) {
+                if (wallToBreak == 8)
+                    wallToBreak = 1;
+                else 
+                    wallToBreak *= 2;
             
-            if (tryWall == wallToBreak) { // this means we've come back to original tryWall
-                        // so it's in union with it's neighbors and we don't need to do anything with it
-                index--;
-                canBreakWall = true;
-                doBreakWall = false;
+                canBreakWall = checkBounds(currentCell, wallToBreak);
             }
-            
-            if (canBreakWall) wallToBreak = tryWall;
         }
         
-        // TODO: This can definitely be modularized
-        if (canBreakWall && doBreakWall) {
-            breakWall(cellIndex, wallToBreak);
+        if (canBreakWall) {
+            breakWall(currentCell, wallToBreak);
             numUnions++;
-            index++;
         }  
         
-        if (index == 0) { // if we've been through all the indices and not everything is in union
+        index++;
+        if (index == indices.size()) { // if we've been through all the indices and not everything is in union
+            std::cout << "this occurs" << std::endl;
             index = 0;
         } 
     }
