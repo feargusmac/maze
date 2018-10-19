@@ -83,7 +83,6 @@ void mazeGen::generateMaze() {
         
         index++;
         if (index == indices.size()) { // if we've been through all the indices and not everything is in union
-            std::cout << "this occurs" << std::endl;
             index = 0;
         } 
     }
