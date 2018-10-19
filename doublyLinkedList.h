@@ -32,9 +32,9 @@ class doublyLinkedList {
     doublyLinkedList();
     virtual ~doublyLinkedList();
     void insertFront(T);
-    std::string removeFront();
-    void insertRead(T);
-    std::string removeRear();
+    T removeFront();
+    void insertRear(T);
+    T removeRear();
     void print();
  private:
      LinkNode *head;
