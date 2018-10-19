@@ -28,9 +28,9 @@ private:
     void shuffle(std::vector<int>&);
     
     // helper access functions
-    int top(int);
+    int above(int);
     int right(int);
-    int bottom(int);
+    int below(int);
     int left(int);
     
     // private variables
@@ -43,9 +43,9 @@ private:
     // CONSTANTS
 
     int TOP = 8;
-    int RIGHT = 1;
+    int RIGHTSIDE = 1;
     int BOTTOM = 2;
-    int LEFT = 4;
+    int LEFTSIDE = 4;
     
 };
 

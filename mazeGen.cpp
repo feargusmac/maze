@@ -62,7 +62,6 @@ void mazeGen::generateMaze() {
         // random cell to work with from randomly shuffled vector of all indices
         int cellIndex = indices[index]; // rename to randIndex?
         
-
         int wallToBreak = pow(2,(rand()%4)); // randomly select a wall to break
         bool canBreakWall = checkBounds(cellIndex, wallToBreak);
         int tryWall = wallToBreak;
@@ -92,19 +91,19 @@ void mazeGen::generateMaze() {
             breakWall(cellIndex, wallToBreak);
             // also need to break wall in adjacent cell
             if (wallToBreak == TOP) { 
-                breakWall(top(cellIndex), BOTTOM); 
-                MazeSets->nunion(cellIndex, top(cellIndex));
+                //breakWall(above(cellIndex), BOTTOM); 
+                MazeSets->nunion(cellIndex, above(cellIndex));
                 numUnions++;
-            } else if (wallToBreak == RIGHT) { 
-                breakWall(right(cellIndex), LEFT); 
+            } else if (wallToBreak == RIGHTSIDE) { 
+                //breakWall(right(cellIndex), LEFTSIDE); 
                 MazeSets->nunion(cellIndex, right(cellIndex));
                 numUnions++;
             } else if (wallToBreak == BOTTOM) {
-                breakWall(bottom(cellIndex), TOP); 
-                MazeSets->nunion(cellIndex, bottom(cellIndex));
+                //breakWall(below(cellIndex), TOP); 
+                MazeSets->nunion(cellIndex, below(cellIndex));
                 numUnions++;
-            } else if (wallToBreak == LEFT) { 
-                breakWall(left(cellIndex), RIGHT); 
+            } else if (wallToBreak == LEFTSIDE) { 
+                //breakWall(left(cellIndex), RIGHTSIDE); 
                 MazeSets->nunion(cellIndex, left(cellIndex));
                 numUnions++;
             }
@@ -130,14 +129,18 @@ std::string mazeGen::printMaze() {
 }
 
 void mazeGen::breakWall(int cellIndex, int wall) {
-    if (wall == TOP) {                            // VVV can it binary xor?
-        Maze[cellIndex] = Maze[cellIndex] ^ TOP; // the difference in hex value for cell type when removing top
-    } else if (wall == RIGHT) {
-        Maze[cellIndex] = Maze[cellIndex] ^ RIGHT; // and so on
+    if (wall == TOP) {
+        Maze[cellIndex] = Maze[cellIndex] ^ TOP; 
+        Maze[above(cellIndex)] = Maze[above(cellIndex)] ^ BOTTOM;
+    } else if (wall == RIGHTSIDE) {
+        Maze[cellIndex] = Maze[cellIndex] ^ RIGHTSIDE; 
+        Maze[right(cellIndex)] = Maze[right(cellIndex)] ^ LEFTSIDE;
     } else if (wall == BOTTOM) {
         Maze[cellIndex] = Maze[cellIndex] ^ BOTTOM;
-    } else if (wall == LEFT) {
-        Maze[cellIndex] = Maze[cellIndex] ^ LEFT;
+        Maze[below(cellIndex)] = Maze[below(cellIndex)] ^ TOP;
+    } else if (wall == LEFTSIDE) {
+        Maze[cellIndex] = Maze[cellIndex] ^ LEFTSIDE;
+        Maze[left(cellIndex)] = Maze[left(cellIndex)] ^ RIGHTSIDE;
     }
 }
 
@@ -145,12 +148,12 @@ void mazeGen::breakWall(int cellIndex, int wall) {
 bool mazeGen::checkBounds(int cellIndex, int wall) {
     int otherCell;
     if (wall == TOP) {
-        otherCell = top(cellIndex);
-    } else if (wall == RIGHT) {
+        otherCell = above(cellIndex);
+    } else if (wall == RIGHTSIDE) {
         otherCell = right(cellIndex);
     } else if (wall == BOTTOM) {
-        otherCell = bottom(cellIndex);
-    } else if (wall == LEFT) {
+        otherCell = below(cellIndex);
+    } else if (wall == LEFTSIDE) {
         otherCell = left(cellIndex);
     }
     
@@ -175,7 +178,7 @@ void mazeGen::shuffle(std::vector<int> &indices) {
     }
 }
 
-int mazeGen::top(int x) {
+int mazeGen::above(int x) {
     if (x-N < 0) return -1;
     return x - N;
 }
@@ -185,7 +188,7 @@ int mazeGen::right(int x) {
     return x + 1;
 }
 
-int mazeGen::bottom(int x) {
+int mazeGen::below(int x) {
     if (x+N > numCells-1) return -1;
     return x + N;
 }
