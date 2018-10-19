@@ -89,24 +89,7 @@ void mazeGen::generateMaze() {
         // TODO: This can definitely be modularized
         if (canBreakWall && doBreakWall) {
             breakWall(cellIndex, wallToBreak);
-            // also need to break wall in adjacent cell
-            if (wallToBreak == TOP) { 
-                //breakWall(above(cellIndex), BOTTOM); 
-                MazeSets->nunion(cellIndex, above(cellIndex));
-                numUnions++;
-            } else if (wallToBreak == RIGHTSIDE) { 
-                //breakWall(right(cellIndex), LEFTSIDE); 
-                MazeSets->nunion(cellIndex, right(cellIndex));
-                numUnions++;
-            } else if (wallToBreak == BOTTOM) {
-                //breakWall(below(cellIndex), TOP); 
-                MazeSets->nunion(cellIndex, below(cellIndex));
-                numUnions++;
-            } else if (wallToBreak == LEFTSIDE) { 
-                //breakWall(left(cellIndex), RIGHTSIDE); 
-                MazeSets->nunion(cellIndex, left(cellIndex));
-                numUnions++;
-            }
+            numUnions++;
             index++;
         }  
         
@@ -132,15 +115,19 @@ void mazeGen::breakWall(int cellIndex, int wall) {
     if (wall == TOP) {
         Maze[cellIndex] = Maze[cellIndex] ^ TOP; 
         Maze[above(cellIndex)] = Maze[above(cellIndex)] ^ BOTTOM;
+        MazeSets->nunion(cellIndex, above(cellIndex));
     } else if (wall == RIGHTSIDE) {
         Maze[cellIndex] = Maze[cellIndex] ^ RIGHTSIDE; 
         Maze[right(cellIndex)] = Maze[right(cellIndex)] ^ LEFTSIDE;
+        MazeSets->nunion(cellIndex, right(cellIndex));
     } else if (wall == BOTTOM) {
         Maze[cellIndex] = Maze[cellIndex] ^ BOTTOM;
         Maze[below(cellIndex)] = Maze[below(cellIndex)] ^ TOP;
+        MazeSets->nunion(cellIndex, below(cellIndex));
     } else if (wall == LEFTSIDE) {
         Maze[cellIndex] = Maze[cellIndex] ^ LEFTSIDE;
         Maze[left(cellIndex)] = Maze[left(cellIndex)] ^ RIGHTSIDE;
+        MazeSets->nunion(cellIndex, left(cellIndex));
     }
 }
 
