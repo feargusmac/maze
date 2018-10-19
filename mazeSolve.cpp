@@ -22,8 +22,6 @@ mazeSolve::mazeSolve(std::string mazeString) {
     // TODO: do I need anything else here?
 }
 
-
-
 mazeSolve::~mazeSolve() {
     delete maze; maze = 0;
 }
@@ -49,7 +47,6 @@ Graph *mazeSolve::getInput(std::string input) {
                 std::cerr << "Input " << j << " is not hex." << std::endl;
                 exit(1);
             }
-            
             str += input[j];
         }
         
@@ -96,28 +93,24 @@ std::vector<int> mazeSolve::adj(int t) {
     ss >> convertedInteger;
     
     // ___find all adjacent cells and convert to integers
-    // check right - 1 
     if ((convertedInteger | RIGHTSIDE) != convertedInteger) {
         int cell = maze->right(t);
         if (cell >= 0) 
             adjCells.push_back(cell);
     }
     
-    // check bottom - 2
     if ((convertedInteger | BOTTOM) != convertedInteger) {
         int cell = maze->below(t);
         if (cell >= 0)
             adjCells.push_back(cell);
     }
     
-    // check left - 3
     if ((convertedInteger | LEFTSIDE) != convertedInteger) {
         int cell = maze->left(t);
         if (cell >= 0)
             adjCells.push_back(cell);
     }
     
-    // check top - 8
     if ((convertedInteger | TOP) != convertedInteger) {
         int cell = maze->above(t);
         if (cell >= 0) 
