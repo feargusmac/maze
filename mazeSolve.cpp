@@ -11,7 +11,6 @@
 #include "doublyLinkedList.h"
 #include <cmath>
 #include <iostream>
-//****#include <queue> // make my own queue class
 #include <sstream>
 
 /*mazeSolve::mazeSolve() {
@@ -63,17 +62,13 @@ void mazeSolve::solve() {
 }
 
 void mazeSolve::BFS(int source) {
-    //****std::queue<int> myQ;
     Queue<int> queue;
-    maze->color[source] = GREY; // TODO: enumerate colors
+    maze->color[source] = GREY;
     maze->distance[source] = 0;
     maze->parent[source] = 0;
-    //****myQ.push(source);
     queue.enque(source);
     
-    //****while(!myQ.empty()) {
     while(!queue.isEmpty()) {
-        //****int t = myQ.front();
         int t = queue.deque();
         std::vector<int> adjCells = adj(t);
         for (int v : adjCells) {
@@ -81,12 +76,9 @@ void mazeSolve::BFS(int source) {
                 maze->color[v] = GREY; // grey again enumerate this
                 maze->parent[v] = t;
                 maze->distance[v] = maze->distance[t]+1;
-                //****myQ.push(v);
                 queue.enque(v);
             }
         }
-        //****myQ.pop();
-        //????queue.deque();
         maze->color[t] = BLACK; // black see above
     }
 }
