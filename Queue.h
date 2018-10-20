@@ -8,11 +8,20 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-class Queue {
+#include "doublyLinkedList.h"
+
+template <class T>
+class Queue : public doublyLinkedList<T> {
 public:
     Queue();
     virtual ~Queue();
+    void enque(T data);
+    T deque();
+    bool isEmpty();
+    
 private:
+    doublyLinkedList *queue;
+    int count;
 
 };
 
