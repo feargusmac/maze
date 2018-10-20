@@ -8,7 +8,7 @@
  */
 
 #include "mazeSolve.h"
-#include "Queue.h"
+#include "doublyLinkedList.h"
 #include <cmath>
 #include <iostream>
 //****#include <queue> // make my own queue class
