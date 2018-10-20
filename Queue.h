@@ -20,7 +20,7 @@ public:
     bool isEmpty();
     
 private:
-    doublyLinkedList *queue;
+    doublyLinkedList<T> *queue;
     int count;
 
 };

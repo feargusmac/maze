@@ -10,7 +10,7 @@
 template <class T>
 Queue<T>::Queue() {
     count = 0;
-    queue = new doublyLinkedList();
+    queue = new doublyLinkedList<T>();
     
 }
 
